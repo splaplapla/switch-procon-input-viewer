@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-export const Top = () => {
+const Viewer = () => {
   return(
     <>
       <div>
@@ -12,6 +12,20 @@ export const Top = () => {
         状態を取得する: <input type="checkbox" />
         </label>
       </div>
+      <div>
+        <label>
+        背景色を変更する:
+        </label>
+      </div>
+    </>
+  );
+}
+
+export const Top = () => {
+  return(
+    <>
+      <h1>SwitchProControllerInputViewer</h1>
+      <Viewer />
     </>
   );
 }
