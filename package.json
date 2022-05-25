@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "server": "webpack serve"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "server": "webpack serve --mode development"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "html-webpack-plugin": "^5.5.0",
     "ts-loader": "^9.3.0",
     "ts-node": "^10.8.0",
     "typescript": "^4.6.4",
@@ -21,6 +27,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
-    "net": "^1.0.2"
+    "net": "^1.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   }
 }

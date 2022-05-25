@@ -1,3 +1,8 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
+import { Top } from './pages/top.jsx';
+
 function component() {
   const element = document.createElement('div');
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
@@ -23,3 +28,7 @@ function fetchProcon(port, host) {
 
 
 fetchProcon(port, host)
+
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<Top />);
