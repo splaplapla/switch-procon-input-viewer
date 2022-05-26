@@ -16,6 +16,7 @@ const ProconStatusFetcher = ({ destinationServer }) => {
   `;
 
   const fetchProcon = (destinationServer) => {
+    // TODO no configurationの名前解決ができるようにする
     (async () => {
       try {
         const response = await axios.get(`http://${destinationServer}`)
@@ -153,7 +154,7 @@ const ProconStatusFetcher = ({ destinationServer }) => {
 }
 
 const Viewer = () => {
-  // cookieに書き込んで復元できるようにする
+  // TODO cookieに書き込んで復元できるようにする
   const [serverName, setServerName] = useState('192.168.50.122:9900');
   const [checked, setChecked] = useState(false);
 
