@@ -10,10 +10,10 @@ const ProconStatusFetcher = ({ destinationServer }) => {
   const [proconLeftStickY, setProconLeftStickY] = useState(0);
 
   const Svg = styled.svg`
-  * {
-    user-select: none;
-  }
-`;
+    * {
+      user-select: none;
+    }
+  `;
 
   const fetchProcon = (destinationServer) => {
     (async () => {
