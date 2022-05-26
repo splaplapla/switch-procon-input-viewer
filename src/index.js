@@ -19,7 +19,6 @@ function fetchProcon(port, host) {
   })();
 };
 
-
 fetchProcon(port, host)
 
 const container = document.getElementById('app');
