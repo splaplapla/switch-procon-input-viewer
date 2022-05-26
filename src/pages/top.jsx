@@ -1,13 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
+const axios = require('axios');
 
-const ProconStatusFetcher = () => {
-  const [intervalCount, setIntervalCount] = useState(0);
+const ProconStatusFetcher = ({ destinationServer }) => {
+  const [proconButtons, setProconButtons] = useState([]);
+  const [proconLeftStickX, setProconLeftStickX] = useState(0);
+  const [proconLeftStickY, setProconLeftStickY] = useState(0);
+
+  const fetchProcon = (destinationServer) => {
+    (async () => {
+      try {
+        const response = await axios.get(`http://${destinationServer}`)
+        console.log(response.data);
+        setProconButtons(response.data.buttons)
+        setProconLeftStickX(response.data.left_analog_stick.x)
+        setProconLeftStickX(response.data.left_analog_stick.y)
+      } catch (error) {
+        console.error(error.response);
+      }
+    })();
+  }
 
   useEffect(() => {
     const timerid = setInterval(() => {
-      setIntervalCount(c => c + 1);
-    }, 500);
+      fetchProcon(destinationServer);
+    }, 200);
 
     return () => {
       clearInterval(timerid);
@@ -16,27 +33,28 @@ const ProconStatusFetcher = () => {
 
   return(
     <>
-
       <div>
-        {intervalCount}
+        {proconButtons}
+      </div>
+      <div>
+        x: {proconLeftStickX}
+      </div>
+      <div>
+        y: {proconLeftStickY}
       </div>
     </>
   );
 }
 
 const Viewer = () => {
-  const [serverName, setserverName] = useState('');
+  // cookieに書き込んで復元できるようにする
+  const [serverName, setServerName] = useState('192.168.50.122:9900');
   const [checked, setChecked] = useState(false);
-  // 接続先IPアドレス: <input type="text" value="http://192.168.50.122:9900/" />
-
-  const handleCheckbox = () => {
-    debugger;
-  }
 
   return(
     <>
       <div>
-        接続先IPアドレス: <input type="text" value={serverName} onChange={console.log} />
+        接続先IPアドレス: <input type="text" value={serverName} onChange={e => setServerName(e.target.value)} />
       </div>
       <div>
         <label>
@@ -48,7 +66,7 @@ const Viewer = () => {
         背景色を変更する:
         </label>
       </div>
-      {checked && <ProconStatusFetcher />}
+      {checked && <ProconStatusFetcher destinationServer={serverName} />}
     </>
   );
 }
