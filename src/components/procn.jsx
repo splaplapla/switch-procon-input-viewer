@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-export const Procon = () => {
+export const Procon = ({ pressedButtons }) => {
   const defaultColor = "#7C8388";
   const pressedColor = "red";
 
@@ -78,7 +78,8 @@ export const Procon = () => {
       <circle cx="570" cy="347" r="22" fill={defaultColor} stroke="#030407" strokeWidth="4" />
 
       {/* ScreenShot */}
-      <rect x="408" y="326" width="42" height="42" rx="6" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <rect x="408" y="326" width="42" height="42" rx="6"
+        fill={defaultColor} stroke="#030407" strokeWidth="4" />
 
       {/* R */}
       <path d="M890 221C857.466 181.718 761.592 162.969 667 155.109C673.167 151.239 687.4 142.9 695 140.5C704.5 137.5 755.5 142.5 806.5 152.5C847.3 160.5 879.167 201.5 890 221Z"

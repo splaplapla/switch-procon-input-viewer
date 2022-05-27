@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
-import styled from "styled-components";
 import { Procon } from "../components/procn.jsx";
 
 const axios = require('axios');
 
-const ProconStatusFetcher = ({ destinationServer }) => {
+const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
   const [proconButtons, setProconButtons] = useState([]);
   const [proconLeftStickX, setProconLeftStickX] = useState(0);
   const [proconLeftStickY, setProconLeftStickY] = useState(0);
@@ -20,6 +19,7 @@ const ProconStatusFetcher = ({ destinationServer }) => {
         setProconLeftStickX(response.data.left_analog_stick.x)
         setProconLeftStickX(response.data.left_analog_stick.y)
       } catch (error) {
+        setFetchEnabled(false);
         console.error(error.response);
       }
     })();
@@ -56,7 +56,7 @@ const ProconStatusFetcher = ({ destinationServer }) => {
 const Viewer = () => {
   // TODO cookieに書き込んで復元できるようにする
   const [serverName, setServerName] = useState('192.168.50.122:9900');
-  const [checked, setChecked] = useState(false);
+  const [fetchEnabled, setFetchEnabled] = useState(false);
 
   return(
     <>
@@ -65,16 +65,16 @@ const Viewer = () => {
       </div>
       <div>
         <label>
-        状態を取得する: <input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />
+          状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabled(e.target.checked)} />
         </label>
       </div>
       <div>
         <label>
-        背景色を変更する:
+          背景色を変更する:
         </label>
       </div>
-      {checked && <ProconStatusFetcher destinationServer={serverName} />}
-      {!checked && <Procon />}
+      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} setFetchEnabled={setFetchEnabled} />}
+      {!fetchEnabled && <Procon />}
     </>
   );
 }
