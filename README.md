@@ -6,3 +6,8 @@
 * npm ci
 * npm run server
 * http://localhost:8080/ を開く
+
+## TODO
+* スティックを動くようにする
+* cookieに書き込んで復元できるようにする
+* no configurationの名前解決ができるようにする
