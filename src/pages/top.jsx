@@ -137,6 +137,8 @@ const ProconStatusFetcher = ({ destinationServer }) => {
 
   return(
     <>
+      {<Procon />}
+      <hr />
       <div>
         {proconButtons}
       </div>
@@ -145,9 +147,6 @@ const ProconStatusFetcher = ({ destinationServer }) => {
       </div>
       <div>
         y: {proconLeftStickY}
-      </div>
-      <div>
-        {<Procon />}
       </div>
     </>
   );
