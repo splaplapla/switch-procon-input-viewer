@@ -6,11 +6,22 @@ export const Procon = ({ pressedButtons }) => {
   const defaultColor = "#7C8388";
   const pressedColor = "red";
 
+  let pressedButtonsMap = {};
+  if(pressedButtons) {
+    pressedButtonsMap = pressedButtons.reduce((a, i) => {
+      a[i] = true;
+      return a;
+    }, {});
+  }
+
   const Svg = styled.svg`
     * {
       user-select: none;
     }
   `;
+  const buttonColor = (button) => {
+    return pressedButtonsMap[button] ? pressedColor : defaultColor
+  }
 
   return(
     <Svg width={"480"} viewBox="0 0 1024 830" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" >
@@ -45,60 +56,60 @@ export const Procon = ({ pressedButtons }) => {
       <circle cx="632" cy="483" r="59" onMouseDown={(e) => onStickDown(e, "right")} />
 
       {/* Direction Up */}
-      <path d="M325 411.5H346.5H368V462.5L346.5 484L325 462.5V411.5Z" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <path d="M325 411.5H346.5H368V462.5L346.5 484L325 462.5V411.5Z" fill={buttonColor("up")} stroke="#030407" strokeWidth="4" />
 
       {/* Direction Right */}
-      <path d="M419 462.5L419 484L419 505.5L368 505.5L346.5 484L368 462.5L419 462.5Z" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <path d="M419 462.5L419 484L419 505.5L368 505.5L346.5 484L368 462.5L419 462.5Z" fill={buttonColor("right")} stroke="#030407" strokeWidth="4" />
 
       {/* Direction Down */}
-      <path d="M325 556.5H346.5H368V505.5L346.5 484L325 505.5V556.5Z" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <path d="M325 556.5H346.5H368V505.5L346.5 484L325 505.5V556.5Z" fill={buttonColor("down")} stroke="#030407" strokeWidth="4" />
 
       {/* Direction Left */}
-      <path d="M274 462.5L274 484L274 505.5L325 505.5L346.5 484L325 462.5L274 462.5Z" stroke="#030407" fill={defaultColor} strokeWidth="4" />
+      <path d="M274 462.5L274 484L274 505.5L325 505.5L346.5 484L325 462.5L274 462.5Z" fill={buttonColor("left")} stroke="#030407" strokeWidth="4" />
 
       {/* Button X */}
-      <circle cx="764" cy="277" r="37" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="764" cy="277" r="37" fill={buttonColor("x")} stroke="#030407" strokeWidth="4" />
 
       {/* Button Y */}
-      <circle cx="686" cy="345" r="37" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="686" cy="345" r="37" fill={buttonColor("y")} stroke="#030407" strokeWidth="4" />
 
       {/* Button A */}
-      <circle cx="842" cy="345" r="37" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="842" cy="345" r="37" fill={buttonColor("a")} stroke="#030407" strokeWidth="4" />
 
       {/* Button B */}
-      <circle cx="764" cy="415" r="37" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="764" cy="415" r="37" fill={buttonColor("b")} stroke="#030407" strokeWidth="4" />
 
       {/* Plus */}
-      <circle cx="625" cy="269" r="22" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="625" cy="269" r="22" fill={buttonColor("plus")} stroke="#030407" strokeWidth="4" />
 
       {/* Minus */}
-      <circle cx="375" cy="269" r="22" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="375" cy="269" r="22" fill={buttonColor("minus")} stroke="#030407" strokeWidth="4" />
 
       {/* Home */}
-      <circle cx="570" cy="347" r="22" fill={defaultColor} stroke="#030407" strokeWidth="4" />
+      <circle cx="570" cy="347" r="22" fill={buttonColor("home")} stroke="#030407" strokeWidth="4" />
 
       {/* ScreenShot */}
       <rect x="408" y="326" width="42" height="42" rx="6"
-        fill={defaultColor} stroke="#030407" strokeWidth="4" />
+        fill={buttonColor("cap")} stroke="#030407" strokeWidth="4" />
 
       {/* R */}
       <path d="M890 221C857.466 181.718 761.592 162.969 667 155.109C673.167 151.239 687.4 142.9 695 140.5C704.5 137.5 755.5 142.5 806.5 152.5C847.3 160.5 879.167 201.5 890 221Z"
-        fill={defaultColor} stroke="black" strokeWidth="4" />
+        fill={buttonColor("r")} stroke="black" strokeWidth="4" />
 
       {/* L */}
       <path
         d="M110 221C142.534 181.718 238.408 162.969 333 155.109C326.833 151.239 312.6 142.9 305 140.5C295.5 137.5 244.5 142.5 193.5 152.5C152.7 160.5 120.833 201.5 110 221Z"
-        fill={defaultColor} stroke="black" strokeWidth="4" />
+        fill={buttonColor("l")} stroke="black" strokeWidth="4" />
 
       {/* ZR */}
       <path
         d="M722.379 30.8329C712.477 34.4403 704.001 82.3138 701 105.8C706.626 110.873 750.508 112 777.513 112C804.517 112 847.275 105.8 852.338 100.727C857.401 95.6539 832.084 42.6697 821.958 34.7785C811.831 26.8872 734.756 26.3236 722.379 30.8329Z"
-        fill={defaultColor} stroke="black" strokeWidth="4" />
+        fill={buttonColor("zr")} stroke="black" strokeWidth="4" />
 
       {/* ZL */}
       <path
         d="M276.621 30.8329C286.523 34.4403 294.999 82.3138 298 105.8C292.374 110.873 248.492 112 221.487 112C194.483 112 151.725 105.8 146.662 100.727C141.599 95.6539 166.916 42.6697 177.042 34.7785C187.169 26.8872 264.244 26.3236 276.621 30.8329Z"
-        fill={defaultColor} stroke="black" strokeWidth="4" />
+        fill={buttonColor("zl")} stroke="black" strokeWidth="4" />
     </Svg>
   )
 }

@@ -5,7 +5,7 @@ import { Procon } from "../components/procn.jsx";
 const axios = require('axios');
 
 const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
-  const [proconButtons, setProconButtons] = useState([]);
+  const [pressedButtons, setPressedButtons] = useState([]);
   const [proconLeftStickX, setProconLeftStickX] = useState(0);
   const [proconLeftStickY, setProconLeftStickY] = useState(0);
 
@@ -14,7 +14,7 @@ const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
       try {
         const response = await axios.get(`http://${destinationServer}`)
         console.log(response.data);
-        setProconButtons(response.data.buttons)
+        setPressedButtons(response.data.buttons)
         setProconLeftStickX(response.data.left_analog_stick.x)
         setProconLeftStickX(response.data.left_analog_stick.y)
       } catch (error) {
@@ -27,20 +27,19 @@ const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
   useEffect(() => {
     const timerid = setInterval(() => {
       fetchProcon(destinationServer);
-    }, 200);
+    }, 140);
 
     return () => {
       clearInterval(timerid);
     };
   }, []);
 
-
   return(
     <>
-      {<Procon />}
+      {<Procon pressedButtons={pressedButtons || []} />}
       <hr />
       <div>
-        {proconButtons}
+        {pressedButtons}
       </div>
       <div>
         x: {proconLeftStickX}
@@ -72,7 +71,7 @@ const Viewer = () => {
         </label>
       </div>
       {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} setFetchEnabled={setFetchEnabled} />}
-      {!fetchEnabled && <Procon />}
+      {!fetchEnabled && <Procon pressedButtons={[]}/>}
     </>
   );
 }
