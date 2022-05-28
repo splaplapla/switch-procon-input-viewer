@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { Procon } from "../components/procn.jsx";
+import { ColorPicker } from "../components/color_picker.jsx";
 
 const axios = require('axios');
 
@@ -51,39 +52,31 @@ const ProconStatusFetcher = ({ destinationServer }) => {
   );
 }
 
-const ColorPicker = () => {
-  const [color, setColor] = useState("#ffffff");
-
-  console.log("colorPicker", color);
-
-  const changeColor = (c) => {
-    setColor(c);
-    document.body.style.backgroundColor = c;
-  }
-  // changeColor(color);
-
-  return (
-    <input type="color" value={color} onChange={e => changeColor(e.target.value)} />
-  );
-}
-
 const Viewer = () => {
   const [serverName, setServerName] = useState('192.168.50.122:9900');
   const [fetchEnabled, setFetchEnabled] = useState(false);
+  const [outputTextEnabled, setOutputTextEnabled] = useState(false);
 
   return(
     <>
       <div>
-        接続先IPアドレス: <input type="text" value={serverName} onChange={e => setServerName(e.target.value)} />
-      </div>
-      <div>
         <label>
-          状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabled(e.target.checked)} />
+          接続先IPアドレス: <input type="text" value={serverName} onChange={e => setServerName(e.target.value)} />
         </label>
       </div>
       <div>
         <label>
           背景色を変更する: <ColorPicker />
+        </label>
+      </div>
+      <div>
+        <label>
+          入力のテキスト表示: <input type="checkbox" checked={outputTextEnabled} onChange={e => setOutputTextEnabled(e.target.checked)} />
+        </label>
+      </div>
+      <div>
+        <label>
+          状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabled(e.target.checked)} />
         </label>
       </div>
       <div style={{ "marginTop": "100px" }}></div>
