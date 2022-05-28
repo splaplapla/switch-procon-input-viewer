@@ -15,7 +15,7 @@ const ProconStatusFetcher = ({ destinationServer, outputTextEnabled, savedPollin
   const fetchProcon = (destinationServer) => {
     (async () => {
       try {
-        const response = await axios.get(`http://${destinationServer}:${port}`)
+        const response = await axios.get(`http://${destinationServer}:${port}/input`)
         setPressedButtons(response.data.buttons)
         setProconLeftStickX(response.data.left_analog_stick.x)
         setProconLeftStickX(response.data.left_analog_stick.y)
