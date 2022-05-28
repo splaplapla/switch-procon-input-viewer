@@ -10,7 +10,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "SwitchProControllerInputViewer",
+      title: "switch-procon-input-viewer",
       filename: "index.html",
       template: "src/index.html",
     }),

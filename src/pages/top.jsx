@@ -126,7 +126,7 @@ export const Top = () => {
   return(
     <>
       <GFRibbon />
-      <h1>SwitchProControllerInputViewer for PBM</h1>
+      <h1>SwitchProconInputViewer for PBM</h1>
       <Viewer />
     </>
   );
