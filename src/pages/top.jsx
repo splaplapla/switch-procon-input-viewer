@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { Procon } from "../components/procn.jsx";
 import { ColorPicker } from "../components/color_picker.jsx";
+import { Storage } from "../lib/storage.js"
 
 const axios = require('axios');
 
 const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
+  const port = "9900";
   const [pressedButtons, setPressedButtons] = useState([]);
   const [proconLeftStickX, setProconLeftStickX] = useState(0);
   const [proconLeftStickY, setProconLeftStickY] = useState(0);
@@ -13,12 +15,12 @@ const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
   const fetchProcon = (destinationServer) => {
     (async () => {
       try {
-        const response = await axios.get(`http://${destinationServer}`)
+        const response = await axios.get(`http://${destinationServer}:${port}`)
         setPressedButtons(response.data.buttons)
         setProconLeftStickX(response.data.left_analog_stick.x)
         setProconLeftStickX(response.data.left_analog_stick.y)
       } catch (error) {
-        console.error(error.response);
+        console.error(error);
       }
     })();
   }
@@ -55,15 +57,21 @@ const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
 }
 
 const Viewer = () => {
-  const [serverName, setServerName] = useState('192.168.50.122:9900');
+  const savedServerName = Storage.read("serverName") || "";
+  const [serverName, setServerName] = useState(savedServerName);
   const [fetchEnabled, setFetchEnabled] = useState(false);
   const [outputTextEnabled, setOutputTextEnabled] = useState(false);
+
+  const setAndSaveServerName = (sn) => {
+    setServerName(sn);
+    Storage.write("serverName", sn);
+  }
 
   return(
     <>
       <div>
         <label>
-          接続先IPアドレス: <input type="text" value={serverName} onChange={e => setServerName(e.target.value)} />
+          接続先IPアドレス: <input type="text" value={serverName} onChange={e => setAndSaveServerName(e.target.value)} />
         </label>
       </div>
       <div>
@@ -73,7 +81,7 @@ const Viewer = () => {
       </div>
       <div>
         <label>
-          入力のテキスト表示: <input type="checkbox" checked={outputTextEnabled} onChange={e => setOutputTextEnabled(e.target.checked)} />
+          テキストで入力を表示する: <input type="checkbox" checked={outputTextEnabled} onChange={e => setOutputTextEnabled(e.target.checked)} />
         </label>
       </div>
       <div>
