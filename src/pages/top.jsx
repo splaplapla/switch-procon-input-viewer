@@ -4,7 +4,7 @@ import { Procon } from "../components/procn.jsx";
 
 const axios = require('axios');
 
-const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
+const ProconStatusFetcher = ({ destinationServer }) => {
   const [pressedButtons, setPressedButtons] = useState([]);
   const [proconLeftStickX, setProconLeftStickX] = useState(0);
   const [proconLeftStickY, setProconLeftStickY] = useState(0);
@@ -18,7 +18,6 @@ const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
         setProconLeftStickX(response.data.left_analog_stick.x)
         setProconLeftStickX(response.data.left_analog_stick.y)
       } catch (error) {
-        setFetchEnabled(false);
         alert("Raspberry PIと接続ができませんでした");
         console.error(error.response);
       }
@@ -52,6 +51,22 @@ const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
   );
 }
 
+const ColorPicker = () => {
+  const [color, setColor] = useState("#ffffff");
+
+  console.log("colorPicker", color);
+
+  const changeColor = (c) => {
+    setColor(c);
+    document.body.style.backgroundColor = c;
+  }
+  // changeColor(color);
+
+  return (
+    <input type="color" value={color} onChange={e => changeColor(e.target.value)} />
+  );
+}
+
 const Viewer = () => {
   const [serverName, setServerName] = useState('192.168.50.122:9900');
   const [fetchEnabled, setFetchEnabled] = useState(false);
@@ -68,12 +83,12 @@ const Viewer = () => {
       </div>
       <div>
         <label>
-          背景色を変更する:
+          背景色を変更する: <ColorPicker />
         </label>
       </div>
       <div style={{ "marginTop": "100px" }}></div>
 
-      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} setFetchEnabled={setFetchEnabled} />}
+      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} />}
       {!fetchEnabled && <Procon pressedButtons={[]}/>}
     </>
   );

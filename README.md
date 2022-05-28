@@ -11,3 +11,17 @@
 * スティックを動くようにする
 * cookieに書き込んで復元できるようにする
 * no configurationの名前解決ができるようにする
+
+```js
+// ラズパイが返って来ない
+var mdns = require('mdns-js');
+var browser = mdns.createBrowser();
+browser.on('ready', function () {
+    browser.discover();
+});
+browser.on('update', function (data) {
+  if(data.host) {
+    console.log('data.host:', data.host, 'addresses:', data.addresses);
+  }
+});
+```
