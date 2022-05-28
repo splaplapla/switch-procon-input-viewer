@@ -19,6 +19,7 @@ const ProconStatusFetcher = ({ destinationServer, setFetchEnabled }) => {
         setProconLeftStickX(response.data.left_analog_stick.y)
       } catch (error) {
         setFetchEnabled(false);
+        alert("Raspberry PIと接続ができませんでした");
         console.error(error.response);
       }
     })();
@@ -70,6 +71,8 @@ const Viewer = () => {
           背景色を変更する:
         </label>
       </div>
+      <div style={{ "marginTop": "100px" }}></div>
+
       {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} setFetchEnabled={setFetchEnabled} />}
       {!fetchEnabled && <Procon pressedButtons={[]}/>}
     </>
