@@ -6,7 +6,7 @@ import { Storage } from "../lib/storage.js"
 
 const axios = require('axios');
 
-const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
+const ProconStatusFetcher = ({ destinationServer, outputTextEnabled, savedPollingInterval }) => {
   const port = "9900";
   const [pressedButtons, setPressedButtons] = useState([]);
   const [proconLeftStickX, setProconLeftStickX] = useState(0);
@@ -28,7 +28,7 @@ const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
   useEffect(() => {
     const timerid = setInterval(() => {
       fetchProcon(destinationServer);
-    }, 100);
+    }, savedPollingInterval);
 
     return () => {
       clearInterval(timerid);
@@ -59,6 +59,10 @@ const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
 const Viewer = () => {
   const savedServerName = Storage.read("serverName") || "";
   const [serverName, setServerName] = useState(savedServerName);
+
+  const savedPollingInterval = Storage.read("pollingInterval") || 100;
+  const [pollingInterval, setPollingInterval] = useState(Number(savedPollingInterval));
+
   const [fetchEnabled, setFetchEnabled] = useState(false);
   const [outputTextEnabled, setOutputTextEnabled] = useState(false);
 
@@ -67,11 +71,25 @@ const Viewer = () => {
     Storage.write("serverName", sn);
   }
 
+  const setAndSavePollingInterval = (sn) => {
+    setPollingInterval(sn);
+    Storage.write("pollingInterval", sn);
+    if(fetchEnabled) {
+      setFetchEnabled(false);
+      alert("通信中にポーリング頻度を変更したので、通信をを停止ました。")
+    }
+  }
+
   return(
     <>
       <div>
         <label>
           接続先IPアドレス: <input type="text" value={serverName} onChange={e => setAndSaveServerName(e.target.value)} />
+        </label>
+      </div>
+      <div>
+        <label>
+          ポーリング頻度(ms): <input type="text" value={pollingInterval} onChange={e => setAndSavePollingInterval(e.target.value)} />
         </label>
       </div>
       <div>
@@ -91,7 +109,7 @@ const Viewer = () => {
       </div>
       <div style={{ "marginTop": "100px" }}></div>
 
-      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} outputTextEnabled={outputTextEnabled} />}
+      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} outputTextEnabled={outputTextEnabled} savedPollingInterval={savedPollingInterval} />}
       {!fetchEnabled && <Procon pressedButtons={[]}/>}
     </>
   );
