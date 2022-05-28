@@ -28,7 +28,7 @@ const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
   useEffect(() => {
     const timerid = setInterval(() => {
       fetchProcon(destinationServer);
-    }, 140);
+    }, 100);
 
     return () => {
       clearInterval(timerid);
@@ -97,10 +97,18 @@ const Viewer = () => {
   );
 }
 
+import GitHubForkRibbon from 'react-github-fork-ribbon';
+const GFRibbon = () => (
+  <GitHubForkRibbon href="https://github.com/splaplapla/SwitchProControllerInputViewer" target="_blank" position="right">
+    Fork me on GitHub
+  </GitHubForkRibbon>
+);
+
 export const Top = () => {
   return(
     <>
-      <h1>SwitchProControllerInputViewer</h1>
+      <GFRibbon />
+      <h1>SwitchProControllerInputViewer for PBM</h1>
       <Viewer />
     </>
   );
