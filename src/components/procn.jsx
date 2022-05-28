@@ -14,11 +14,7 @@ export const Procon = ({ pressedButtons }) => {
     }, {});
   }
 
-  const Svg = styled.svg`
-    * {
-      user-select: none;
-    }
-  `;
+  const Svg = styled.svg``;
   const buttonColor = (button) => {
     return pressedButtonsMap[button] ? pressedColor : defaultColor
   }
