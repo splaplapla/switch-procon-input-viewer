@@ -75,9 +75,19 @@ const Viewer = () => {
     setPollingInterval(sn);
     Storage.write("pollingInterval", sn);
     if(fetchEnabled) {
-      setFetchEnabled(false);
+      setFetchEnabledAndValidate(false);
       alert("通信中にポーリング頻度を変更したので、通信をを停止ました。")
     }
+  }
+
+  const setFetchEnabledAndValidate = (value) => {
+    if(value) {
+      if(!serverName) {
+        alert("接続先が空欄なので通信を開始できませんでした。")
+        return;
+      }
+    }
+    setFetchEnabled(value);
   }
 
   return(
@@ -104,7 +114,7 @@ const Viewer = () => {
       </div>
       <div>
         <label>
-          raspberry piから状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabled(e.target.checked)} />
+          raspberry piから状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabledAndValidate(e.target.checked)} />
         </label>
       </div>
       <div style={{ "marginTop": "100px" }}></div>
