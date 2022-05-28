@@ -5,7 +5,7 @@ import { ColorPicker } from "../components/color_picker.jsx";
 
 const axios = require('axios');
 
-const ProconStatusFetcher = ({ destinationServer }) => {
+const ProconStatusFetcher = ({ destinationServer, outputTextEnabled }) => {
   const [pressedButtons, setPressedButtons] = useState([]);
   const [proconLeftStickX, setProconLeftStickX] = useState(0);
   const [proconLeftStickY, setProconLeftStickY] = useState(0);
@@ -14,12 +14,10 @@ const ProconStatusFetcher = ({ destinationServer }) => {
     (async () => {
       try {
         const response = await axios.get(`http://${destinationServer}`)
-        console.log(response.data);
         setPressedButtons(response.data.buttons)
         setProconLeftStickX(response.data.left_analog_stick.x)
         setProconLeftStickX(response.data.left_analog_stick.y)
       } catch (error) {
-        alert("Raspberry PIと接続ができませんでした");
         console.error(error.response);
       }
     })();
@@ -38,16 +36,20 @@ const ProconStatusFetcher = ({ destinationServer }) => {
   return(
     <>
       {<Procon pressedButtons={pressedButtons || []} />}
-      <hr />
-      <div>
-        {pressedButtons}
-      </div>
-      <div>
-        x: {proconLeftStickX}
-      </div>
-      <div>
-        y: {proconLeftStickY}
-      </div>
+
+      {outputTextEnabled && <>
+        <hr />
+        <div>
+          {pressedButtons}
+        </div>
+
+        <div>
+          x: {proconLeftStickX}
+        </div>
+        <div>
+          y: {proconLeftStickY}
+        </div>
+      </>}
     </>
   );
 }
@@ -76,12 +78,12 @@ const Viewer = () => {
       </div>
       <div>
         <label>
-          状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabled(e.target.checked)} />
+          raspberry piから状態を取得する: <input type="checkbox" checked={fetchEnabled} onChange={e => setFetchEnabled(e.target.checked)} />
         </label>
       </div>
       <div style={{ "marginTop": "100px" }}></div>
 
-      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} />}
+      {fetchEnabled && <ProconStatusFetcher destinationServer={serverName} outputTextEnabled={outputTextEnabled} />}
       {!fetchEnabled && <Procon pressedButtons={[]}/>}
     </>
   );
