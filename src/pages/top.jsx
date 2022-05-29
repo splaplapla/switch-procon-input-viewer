@@ -127,7 +127,7 @@ const Viewer = () => {
 
 import GitHubForkRibbon from 'react-github-fork-ribbon';
 const GFRibbon = () => (
-  <GitHubForkRibbon href="https://github.com/splaplapla/SwitchProControllerInputViewer" target="_blank" position="right">
+  <GitHubForkRibbon href="https://github.com/splaplapla/switch-procon-input-viewer" target="_blank" position="right">
     Fork me on GitHub
   </GitHubForkRibbon>
 );
