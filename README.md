@@ -7,5 +7,8 @@
 * npm run server
 * http://localhost:8080/ を開く
 
+## リリース
+* npm run release
+
 ## TODO
 * スティックを動くようにする
