@@ -60,7 +60,7 @@ export const Viewer = () => {
   const savedServerName = Storage.read("serverName") || "";
   const [serverName, setServerName] = useState(savedServerName);
 
-  const savedPollingInterval = Storage.read("pollingInterval") || 100;
+  const savedPollingInterval = Storage.read("pollingInterval") || 250;
   const [pollingInterval, setPollingInterval] = useState(Number(savedPollingInterval));
 
   const [fetchEnabled, setFetchEnabled] = useState(false);
