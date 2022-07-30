@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
-import { Procon } from "react-gamepad-procon";
+import { Procon } from "react-nintendo-switch-procon-renderer";
 import { ColorPicker } from "../components/color_picker.jsx";
 import { Storage } from "../lib/storage.js"
 
