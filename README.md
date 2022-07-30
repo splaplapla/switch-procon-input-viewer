@@ -24,6 +24,9 @@
 
 ## リリース
 * npm run release
+* https://github.com/splaplapla/switch-procon-input-viewer/settings/pages からカスタムドメインに procon_input_viewer.jiikko.com を設定する
 
 ## TODO
 * スティックを動くようにする
+* webページからLAN内にアクセスするためワークアラウンドが面倒なのをなんとかしたい
+  * （カスタムドメインと設定の変更）なのでElectronにすれば解決する？
