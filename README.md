@@ -1,6 +1,7 @@
 # SwitchProconInputViewer for procon_bypass_man
 * 入力表示ができるWEBページです
-* https://github.com/splaplapla/procon_bypass_man の 0.2.1 以上が必要です
+* https://github.com/splaplapla/procon_bypass_man の 0.2.1, 0.2.2, 0.2.3が必要です
+  * 0.3.x系には対応していません
 
 ## 使い方
 ※ このツールはプライベートネットワークにアクセスするので、Chromeを使っている場合は、`chrome://flags/#block` を開いて、 `Block insecure private network requests.` を `Disabled` にしてChromeを再起動してください。  
